@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="s-md-api-suite.xml" />
+	<munit:test name="s-md-apiFlow-test-Upsert" doc:id="da1192dd-b84b-4539-ad33-3a1a1258dee7" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="c2235807-52fc-4d4b-8e77-256866258e1d" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://smdapiFlowtestUpsert\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://smdapiFlowtestUpsert\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to s-md-apiFlow" doc:id="68fe9aea-d428-4e59-be3c-458c3c8d82a2" name="s-md-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="6fd85fda-db1a-4750-a433-fc9e57bbcd6e" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import smdapiFlowtestUpsert::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:assert doc:name="Assert variables" doc:id="f41ef71f-25af-4e9f-92b0-9709e702fa91" message="The variables do not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import smdapiFlowtestUpsert::assert_expression_variables
+---
+assert_expression_variables::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="s-md-apiFlow-test-find" doc:id="54c7469b-bc26-4fd7-a434-af316e3ca7a9" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="faf5cd55-6cf3-4bac-aad0-b78aa24e8987" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://smdapiFlowtestfind\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://smdapiFlowtestfind\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to s-md-apiFlow" doc:id="62a93fba-d414-4bea-a522-7e0db05baa56" name="s-md-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="f1b7670d-bc10-467c-b789-b6dba0b4911c" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import smdapiFlowtestfind::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:assert doc:name="Assert variables" doc:id="3e0e4164-ebae-4e84-a809-c0bd1bd2ed03" message="The variables do not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import smdapiFlowtestfind::assert_expression_variables
+---
+assert_expression_variables::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="s-md-apiFlow-test-delete" doc:id="e27fb302-4e57-4112-a644-fa7d4436025a" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="e306a6d8-bc9f-4df4-b0aa-44f172fe0b84" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://smdapiFlowtestdelete\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://smdapiFlowtestdelete\set-event_attributes.dwl')]" />
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to s-md-apiFlow" doc:id="1c63f4f4-db80-4a1b-a67b-7e066cde86bd" name="s-md-apiFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="1c0fe1ee-bf3d-4e0f-b0ea-55f42b751f6d" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import smdapiFlowtestdelete::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
